@@ -1,7 +1,7 @@
 package com.mary.starwars.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.mary.starwars.R
 
 class MainActivity : AppCompatActivity() {

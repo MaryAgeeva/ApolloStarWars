@@ -4,6 +4,8 @@ interface IRepositoryCallback {
 
     fun getFilm(id: String)
 
+    fun getFilms()
+
     fun deleteFilm(id: String)
 
     fun listenForNewFilm()
