@@ -1,0 +1,51 @@
+query GetFilmNotOptimized($id:ID!) {
+    Film(id:$id) {
+        id
+        title
+        director
+        episodeId
+        characters {
+            id
+            name
+            gender
+            hairColor
+            species {
+                name
+            }
+            skinColor
+        }
+        planets {
+            id
+            name
+            diameter
+            population
+            climate
+        }
+    }
+}
+
+query GetFilmsNotOptimized {
+    allFilms {
+        id
+        title
+        director
+        episodeId
+        characters {
+            id
+            name
+            gender
+            hairColor
+            species {
+                name
+            }
+            skinColor
+        }
+        planets {
+            id
+            name
+            diameter
+            population
+            climate
+        }
+    }
+}

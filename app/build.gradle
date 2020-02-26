@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'com.apollographql.apollo'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.mary.starwars"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    def app = rootProject.ext.dependencies
+    def test = rootProject.ext.testDependencies
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation app.kotlin
+
+    implementation app.appCompat
+    implementation app.ktx
+    implementation app.legacy
+    implementation app.lifecycle
+    implementation app.liveData
+
+    implementation app.constraintLayout
+    implementation app.recyclerView
+
+    implementation app.rxJava
+    implementation app.rxAndroid
+
+    implementation app.koin
+    implementation app.koinAndroid
+    implementation app.koinViewModel
+    implementation app.koinScope
+
+    implementation app.coroutines
+
+    implementation app.navigationFragment
+    implementation app.navigationUi
+    
+    implementation app.apollo
+    implementation app.apolloRx
+    implementation app.apolloCoroutines
+
+    kapt app.lifecycleAnnotation
+
+    testImplementation test.jUnit
+    androidTestImplementation test.espresso
+}

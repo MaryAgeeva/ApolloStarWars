@@ -1,0 +1,31 @@
+fragment FilmFragment on Film {
+    id
+    title
+    director
+    episodeId
+    characters {
+        ...CharacterFragment
+    }
+    planets {
+        ...PlanetFragment
+    }
+}
+
+fragment CharacterFragment on Person {
+    id
+    name
+    gender
+    hairColor
+    species {
+        name
+    }
+    skinColor
+}
+
+fragment PlanetFragment on Planet {
+    id
+    name
+    diameter
+    population
+    climate
+}

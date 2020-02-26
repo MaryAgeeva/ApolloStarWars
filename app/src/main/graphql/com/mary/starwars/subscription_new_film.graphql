@@ -1,0 +1,7 @@
+subscription WaitForNewFilm {
+    Film(filter: { mutation_in: [CREATED] }) {
+        node {
+            ...FilmFragment
+        }
+    }
+}
