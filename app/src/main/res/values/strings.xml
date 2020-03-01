@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">StarWars</string>
+
+    <string name="films_error">Data not loaded</string>
 </resources>

@@ -36,6 +36,7 @@ android {
 dependencies {
     def app = rootProject.ext.dependencies
     def test = rootProject.ext.testDependencies
+    def apollo = rootProject.ext.apolloDependencies
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation app.kotlin
@@ -61,11 +62,14 @@ dependencies {
 
     implementation app.navigationFragment
     implementation app.navigationUi
-    
-    implementation app.apollo
-    implementation app.apolloRx
-    implementation app.apolloCoroutines
 
+    implementation apollo.apollo
+    implementation apollo.apolloRx
+    implementation apollo.apolloCoroutines
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     kapt app.lifecycleAnnotation
 
     testImplementation test.jUnit
