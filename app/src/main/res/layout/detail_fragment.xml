@@ -1,13 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.detail.DetailFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+    <ImageView
+        android:id="@+id/film_detail_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_r2_d2"
+        android:padding="@dimen/padding_medium"
+        app:layout_constraintTop_toTopOf="@id/film_detail_episode_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/film_detail_director_tv"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/film_detail_episode_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_medium"
+        android:paddingStart="@dimen/padding_medium"
+        android:paddingEnd="@dimen/padding_medium"
+        android:paddingBottom="@dimen/padding_small"
+        android:textColor="@color/primary_text"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_large"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/film_detail_img"
+        app:layout_constraintBottom_toTopOf="@id/film_detail_title_tv"
+        tools:text="Episode 1"/>
+
+    <TextView
+        android:id="@+id/film_detail_title_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingStart="@dimen/padding_medium"
+        android:paddingEnd="@dimen/padding_medium"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_large"
+        app:layout_constraintTop_toBottomOf="@id/film_detail_episode_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/film_detail_img"
+        app:layout_constraintBottom_toTopOf="@id/film_detail_director_tv"
+        tools:text="The Phantom menace"/>
+
+    <TextView
+        android:id="@+id/film_detail_director_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/SubHeader"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingStart="@dimen/padding_medium"
+        android:paddingEnd="@dimen/padding_medium"
+        android:paddingBottom="@dimen/padding_small"
+        app:layout_constraintTop_toBottomOf="@id/film_detail_title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/film_detail_img"
+        app:layout_constraintBottom_toBottomOf="@id/film_detail_img"
+        tools:text="George Lucas"/>
+
+    <View
+        android:id="@+id/film_detail_background_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/film_detail_director_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/film_detail_chars_rv"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/film_detail_chars_rv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_small"
+        app:layout_constraintTop_toBottomOf="@id/film_detail_director_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/film_detail_background_view"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

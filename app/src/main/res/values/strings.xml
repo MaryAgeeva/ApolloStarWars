@@ -2,6 +2,6 @@
     <string name="app_name">StarWars</string>
 
     <string name="films_error">Data not loaded</string>
-
     <string name="film_episode">Episode %d</string>
+    <string name="character_color">Hair color: </string>
 </resources>

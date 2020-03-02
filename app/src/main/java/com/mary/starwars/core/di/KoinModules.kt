@@ -29,7 +29,8 @@ val baseModule = module {
         scoped { GetFilmUseCase(get()) }
         viewModel { (id : String) ->
             DetailViewModel(
-                id
+                id,
+                get()
             )
         }
     }
