@@ -1,4 +1,4 @@
-package com.mary.starwars.domain.repository
+package com.mary.starwars.domain.example_repository
 
 interface IRepositoryCallback {
 

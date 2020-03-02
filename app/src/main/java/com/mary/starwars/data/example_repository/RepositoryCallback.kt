@@ -1,4 +1,4 @@
-package com.mary.starwars.data.repository
+package com.mary.starwars.data.example_repository
 
 import android.util.Log
 import com.apollographql.apollo.ApolloCall
@@ -7,7 +7,7 @@ import com.apollographql.apollo.ApolloSubscriptionCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.mary.starwars.*
-import com.mary.starwars.domain.repository.IRepositoryCallback
+import com.mary.starwars.domain.example_repository.IRepositoryCallback
 
 /***
  * Class, created as example, how to execute Apollo calls out of box,

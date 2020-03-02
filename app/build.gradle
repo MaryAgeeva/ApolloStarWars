@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'com.apollographql.apollo'
+apply plugin: 'com.apollographql.apollo' //Apollo GraphQL Android plugin
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
@@ -55,19 +55,24 @@ dependencies {
     implementation app.constraintLayout
     implementation app.recyclerView
 
+    //RxJava
     implementation app.rxJava
     implementation app.rxAndroid
 
+    //Koin DI
     implementation app.koin
     implementation app.koinAndroid
     implementation app.koinViewModel
     implementation app.koinScope
 
+    //Coroutines
     implementation app.coroutines
 
+    //Navigation component
     implementation app.navigationFragment
     implementation app.navigationUi
 
+    //Apollo GraphQL Android
     implementation apollo.apollo
     implementation apollo.apolloRx
     implementation apollo.apolloCoroutines

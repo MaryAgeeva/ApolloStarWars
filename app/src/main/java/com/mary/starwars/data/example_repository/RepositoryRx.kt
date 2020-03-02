@@ -1,4 +1,4 @@
-package com.mary.starwars.data.repository
+package com.mary.starwars.data.example_repository
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.rx2.Rx2Apollo
@@ -8,17 +8,26 @@ import com.mary.starwars.GetFilmsQuery
 import com.mary.starwars.WaitForNewFilmSubscription
 import com.mary.starwars.data.mappers.toFilm
 import com.mary.starwars.domain.entity.Film
-import com.mary.starwars.domain.repository.IRepositoryRx
+import com.mary.starwars.domain.example_repository.IRepositoryRx
 import com.mary.starwars.domain.utils.FilmNotDeletedException
 import com.mary.starwars.domain.utils.FilmNotFoundException
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
+/**
+ * Class, created as example, how to work with RxJava2 support for Apollo GraphQL Android
+ */
 class RepositoryRx(
     private val apolloClient: ApolloClient
 ) : IRepositoryRx {
 
+    /**
+     * Example, how to work with Rx2Apollo class with query calls,
+     * passing the parameters to the query
+     *
+     * Query is built with GraphQL fragments, so only one Java class will be generated for every fragment
+     */
     override fun getFilm(id: String): Single<Film> {
         return Rx2Apollo.from(
             apolloClient.query(
@@ -32,6 +41,12 @@ class RepositoryRx(
             }
     }
 
+    /**
+     * Example, how to work with Rx2Apollo class with query calls
+     * without parameters
+     *
+     * Query is built with GraphQL fragments, so only one Java class will be generated for every fragment
+     */
     override fun getAllFilms(): Single<List<Film>> {
         return Rx2Apollo.from(
             apolloClient.query(
@@ -45,6 +60,9 @@ class RepositoryRx(
             }
     }
 
+    /**
+     * Example, how to work with Rx2Apollo class with mutation calls
+     */
     override fun deleteFilm(id: String): Completable {
         return Rx2Apollo.from(
             apolloClient.mutate(
@@ -60,6 +78,11 @@ class RepositoryRx(
             }
     }
 
+    /**
+     * Example, how to use Rx2Apollo with subscription calls - return type is Flowable<Response<T>> by default
+     *
+     * Subscription uses GraphQL fragments, so only one Java class will be generated for every fragment
+     */
     override fun listenForNewFilm(): Flowable<Film> {
         return Rx2Apollo.from(
             apolloClient.subscribe(
