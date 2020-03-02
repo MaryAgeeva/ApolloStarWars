@@ -32,7 +32,7 @@ class FilmsRepository(
              .map { response ->
                  filmsList = response.data()?.allFilms()?.map { film ->
                      film.fragments().filmFragment().toFilm()
-                 }?: listOf()
+                 }?.sortedBy { it.episode }?: listOf()
                  return@map filmsList
              }
              .subscribeOn(Schedulers.io())

@@ -11,6 +11,7 @@ import com.mary.starwars.presentation.detail.DetailViewModel
 import com.mary.starwars.presentation.films.FilmsViewModel
 import okhttp3.OkHttpClient
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val baseModule = module {
@@ -19,12 +20,12 @@ val baseModule = module {
 
     single<IFilmsRepository> { FilmsRepository(get()) }
 
-    scope<FilmsFragment> {
+    scope(named<FilmsFragment>()) {
         scoped { GetFilmsUseCase(get()) }
         viewModel { FilmsViewModel(get()) }
     }
 
-    scope<DetailFragment> {
+    scope(named<DetailFragment>()) {
         scoped { GetFilmUseCase(get()) }
         viewModel { (id : String) ->
             DetailViewModel(

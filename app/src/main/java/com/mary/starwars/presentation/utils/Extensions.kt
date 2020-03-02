@@ -1,6 +1,8 @@
 package com.mary.starwars.presentation.utils
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -16,4 +18,8 @@ fun View.show() {
 fun View.hide() {
     if(visibility != View.GONE)
         visibility = View.GONE
+}
+
+fun ViewGroup.inflate(resource: Int): View {
+    return LayoutInflater.from(context).inflate(resource, this, false)
 }
