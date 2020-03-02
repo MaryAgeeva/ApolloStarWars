@@ -49,7 +49,6 @@ dependencies {
 
     implementation app.appCompat
     implementation app.ktx
-    implementation app.legacy
     implementation app.lifecycle
     implementation app.liveData
 

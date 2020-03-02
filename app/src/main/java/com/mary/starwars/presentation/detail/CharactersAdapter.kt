@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.mary.starwars.R
 import com.mary.starwars.core.presentation.BaseAdapter
-import com.mary.starwars.presentation.utils.hide
 import com.mary.starwars.presentation.utils.inflate
-import com.mary.starwars.presentation.utils.show
 import kotlinx.android.synthetic.main.item_character.view.*
 
 class CharactersAdapter : BaseAdapter<CharacterViewObject, CharactersAdapter.CharacterViewHolder>() {
@@ -24,14 +22,13 @@ class CharactersAdapter : BaseAdapter<CharacterViewObject, CharactersAdapter.Cha
     inner class CharacterViewHolder(itemView: View) : BaseViewHolder<CharacterViewObject>(itemView) {
 
         override fun bind(model: CharacterViewObject) = with(itemView) {
-            character_divider.apply {
-                if(adapterPosition == items.size - 1)
-                    hide()
-                else show()
-            }
+            /*itemView.setBackgroundColor(
+                if(adapterPosition % 2 == 0)
+                    ContextCompat.getColor(itemView.context, android.R.color.white)
+                else ContextCompat.getColor(itemView.context, R.color.background)
+            )*/
             character_name_tv.text = model.name
             character_species_tv.text = model.species
-            character_color_view.setBackgroundColor(ContextCompat.getColor(itemView.context, model.hairColor))
         }
     }
 }

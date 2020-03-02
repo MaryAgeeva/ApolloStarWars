@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -10,11 +11,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/Header.Dark"
-        android:padding="@dimen/padding_small"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/character_guideline"
-        app:layout_constraintBottom_toTopOf="@id/character_color_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:text="Luke Skywalker"/>
 
     <androidx.constraintlayout.widget.Guideline
@@ -36,26 +36,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Human"/>
 
-    <TextView
-        android:id="@+id/character_color_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/character_color"
-        style="@style/SubHeader"
-        android:padding="@dimen/padding_small"
-        app:layout_constraintTop_toBottomOf="@id/character_species_tv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <View
-        android:id="@+id/character_color_view"
-        android:layout_width="@dimen/character_color_size"
-        android:layout_height="@dimen/character_color_size"
-        app:layout_constraintTop_toTopOf="@id/character_color_tv"
-        app:layout_constraintStart_toEndOf="@id/character_color_tv"
-        app:layout_constraintBottom_toBottomOf="@id/character_color_tv"
-        tools:background="@color/colorPrimary"/>
-
     <View
         android:id="@+id/character_divider"
         android:layout_width="0dp"
@@ -63,7 +43,7 @@
         android:background="@color/colorAccent"
         android:layout_marginStart="@dimen/margin_large"
         android:layout_marginEnd="@dimen/margin_large"
-        app:layout_constraintTop_toBottomOf="@id/character_color_tv"
+        app:layout_constraintTop_toBottomOf="@id/character_name_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

@@ -66,24 +66,12 @@
         app:layout_constraintBottom_toBottomOf="@id/film_detail_img"
         tools:text="George Lucas"/>
 
-    <View
-        android:id="@+id/film_detail_background_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/film_detail_director_tv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/film_detail_chars_rv"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/film_detail_chars_rv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_small"
         app:layout_constraintTop_toBottomOf="@id/film_detail_director_tv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/film_detail_background_view"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
