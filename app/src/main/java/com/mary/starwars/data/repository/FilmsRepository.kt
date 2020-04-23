@@ -1,7 +1,7 @@
 package com.mary.starwars.data.repository
 
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.rx2.Rx2Apollo
+import com.apollographql.apollo.rx2.rxQuery
 import com.mary.starwars.GetFilmsQuery
 import com.mary.starwars.data.mappers.toFilm
 import com.mary.starwars.domain.entity.Film
@@ -24,10 +24,9 @@ class FilmsRepository(
 
     override fun getAllFilms(): Single<List<Film>> {
         return if(filmsList.isEmpty())
-             Rx2Apollo.from(
-                 apolloClient.query(
+                apolloClient.rxQuery(
                      GetFilmsQuery()
-                 )).singleElement()
+                 ).singleElement()
              .toSingle()
              .map { response ->
                  filmsList = response.data()?.allFilms()?.map { film ->

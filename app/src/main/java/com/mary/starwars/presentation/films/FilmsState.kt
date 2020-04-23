@@ -7,5 +7,4 @@ sealed class FilmsState {
     object Loading : FilmsState()
 
     object Error : FilmsState()
-
 }

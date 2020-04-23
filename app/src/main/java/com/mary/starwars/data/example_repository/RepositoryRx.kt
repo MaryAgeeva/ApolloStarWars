@@ -1,7 +1,9 @@
 package com.mary.starwars.data.example_repository
 
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.rx2.Rx2Apollo
+import com.apollographql.apollo.rx2.rxMutate
+import com.apollographql.apollo.rx2.rxQuery
+import com.apollographql.apollo.rx2.rxSubscribe
 import com.mary.starwars.DeleteFilmMutation
 import com.mary.starwars.GetFilmQuery
 import com.mary.starwars.GetFilmsQuery
@@ -29,12 +31,11 @@ class RepositoryRx(
      * Query is built with GraphQL fragments, so only one Java class will be generated for every fragment
      */
     override fun getFilm(id: String): Single<Film> {
-        return Rx2Apollo.from(
-            apolloClient.query(
+        return apolloClient.rxQuery(
                 GetFilmQuery.builder()
                     .id(id)
                     .build()
-            )).singleElement()
+            ).singleElement()
             .toSingle()
             .map { response ->
                 return@map response.data()?.Film()?.fragments()?.filmFragment()?.toFilm()?: throw FilmNotFoundException()
@@ -48,10 +49,9 @@ class RepositoryRx(
      * Query is built with GraphQL fragments, so only one Java class will be generated for every fragment
      */
     override fun getAllFilms(): Single<List<Film>> {
-        return Rx2Apollo.from(
-            apolloClient.query(
+        return apolloClient.rxQuery(
                 GetFilmsQuery()
-            )).singleElement()
+            ).singleElement()
             .toSingle()
             .map { response ->
                 return@map response.data()?.allFilms()?.map { film ->
@@ -64,14 +64,11 @@ class RepositoryRx(
      * Example, how to work with Rx2Apollo class with mutation calls
      */
     override fun deleteFilm(id: String): Completable {
-        return Rx2Apollo.from(
-            apolloClient.mutate(
+        return apolloClient.rxMutate(
                 DeleteFilmMutation.builder()
                     .id(id)
                     .build()
-            )).singleElement()
-            .toSingle()
-            .flatMapCompletable { response ->
+            ).flatMapCompletable { response ->
                 return@flatMapCompletable response.data()?.deleteFilm()?.let {
                     Completable.complete()
                 }?: Completable.error(FilmNotDeletedException())
@@ -84,11 +81,10 @@ class RepositoryRx(
      * Subscription uses GraphQL fragments, so only one Java class will be generated for every fragment
      */
     override fun listenForNewFilm(): Flowable<Film> {
-        return Rx2Apollo.from(
-            apolloClient.subscribe(
+        return apolloClient.rxSubscribe(
                 WaitForNewFilmSubscription()
             )
-        ).map { response ->
+        .map { response ->
             return@map response.data()?.Film()?.node()?.fragments()?.filmFragment()?.toFilm()?: throw FilmNotFoundException()
         }
     }
