@@ -29,8 +29,8 @@ class FilmsRepository(
                  ).singleElement()
              .toSingle()
              .map { response ->
-                 filmsList = response.data?.allFilms?.map { film ->
-                     film.fragments.filmFragment.toFilm()
+                 filmsList = response.data?.allFilms?.edges?.mapNotNull { film ->
+                     film?.node?.fragments?.filmFragment?.toFilm()
                  }?.sortedBy { it.episode }?: listOf()
                  return@map filmsList
              }

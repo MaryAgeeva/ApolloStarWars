@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "Default GraphQL Endpoint": {
-        "url": "https://swapi.graph.cool/graphql",
+        "url": "https://swapi-android.herokuapp.com/",
         "headers": {
           "user-agent": "JS GraphQL"
         },

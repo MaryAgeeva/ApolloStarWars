@@ -5,20 +5,18 @@ import com.mary.starwars.domain.utils.empty
 import com.mary.starwars.fragment.CharacterFragment
 import com.mary.starwars.fragment.FilmFragment
 import com.mary.starwars.fragment.PlanetFragment
-import com.mary.starwars.type.PERSON_GENDER
-import com.mary.starwars.type.PERSON_HAIR_COLOR
 
 internal fun FilmFragment.toFilm() : Film {
     return Film(
         id = id,
-        title = title,
+        title = title?: String.empty(),
         director = director?: String.empty(),
-        episode = episodeId,
-        characters =  characters?.map {
-            it.fragments.characterFragment.toCharacter()
+        episode = episodeID?: 0,
+        characters =  characterConnection?.characters?.mapNotNull {
+            it?.fragments?.characterFragment?.toCharacter()
         }?: listOf(),
-        planets = planets?.map {
-            it.fragments.planetFragment.toPlanet()
+        planets = planetConnection?.planets?.mapNotNull {
+            it?.fragments?.planetFragment?.toPlanet()
         }?: listOf()
     )
 }
@@ -26,36 +24,36 @@ internal fun FilmFragment.toFilm() : Film {
 private fun CharacterFragment.toCharacter() : Character {
     return Character(
         id = id,
-        name = name,
-        gender = gender.toGender(),
-        hairColor = if(!hairColor.isNullOrEmpty()) hairColor.first().toColor() else Color.OTHER,
-        species = if(!species.isNullOrEmpty()) species.first().name else String.empty()
+        name = name?: String.empty(),
+        gender = gender?.toGender() ?: Gender.UNKNOWN,
+        hairColor = hairColor?.toColor()?: Color.OTHER,
+        species = species?.name?: String.empty()
     )
 }
 
 private fun PlanetFragment.toPlanet() : Planet {
     return Planet(
         id = id,
-        title = name,
+        title = name?: String.empty(),
         diameter = diameter ?: 0,
         population = population ?: 0.0,
-        climate = climate ?: listOf()
+        climate = climates?.filterNotNull()?: listOf()
     )
 }
 
-private fun PERSON_GENDER?.toGender() : Gender {
+private fun String?.toGender() : Gender {
     return when(this) {
-        PERSON_GENDER.MALE -> Gender.MALE
-        PERSON_GENDER.FEMALE -> Gender.FEMALE
+        "male" -> Gender.MALE
+        "female" -> Gender.FEMALE
         else -> Gender.UNKNOWN
     }
 }
 
-private fun PERSON_HAIR_COLOR?.toColor() : Color {
+private fun String?.toColor() : Color {
     return when(this) {
-        PERSON_HAIR_COLOR.WHITE -> Color.WHITE
-        PERSON_HAIR_COLOR.BLACK -> Color.BLACK
-        PERSON_HAIR_COLOR.BROWN -> Color.BROWN
+        "white" -> Color.WHITE
+        "black" -> Color.BLACK
+        "brown" -> Color.BROWN
         else -> Color.OTHER
     }
 }

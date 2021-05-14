@@ -1,51 +1,63 @@
 query GetFilmNotOptimized($id:ID!) {
-    Film(id:$id) {
+    film(id:$id) {
         id
         title
         director
-        episodeId
-        characters {
-            id
-            name
-            gender
-            hairColor
-            species {
+        episodeID
+        characterConnection {
+            characters {
+                id
                 name
+                gender
+                hairColor
+                species {
+                    name
+                }
+                skinColor
             }
-            skinColor
         }
-        planets {
-            id
-            name
-            diameter
-            population
-            climate
+        planetConnection {
+            planets {
+                id
+                name
+                diameter
+                population
+                climates
+            }
         }
     }
 }
 
 query GetFilmsNotOptimized {
     allFilms {
-        id
-        title
-        director
-        episodeId
-        characters {
-            id
-            name
-            gender
-            hairColor
-            species {
-                name
+        edges {
+            node {
+                id
+                title
+                director
+                episodeID
+                characterConnection {
+                    characters {
+                        id
+                        name
+                        gender
+                        hairColor
+                        species {
+                            name
+                        }
+                        skinColor
+                    }
+                }
+                planetConnection {
+                    planets {
+                        id
+                        name
+                        diameter
+                        population
+                        climates
+                    }
+                }
             }
-            skinColor
-        }
-        planets {
-            id
-            name
-            diameter
-            population
-            climate
         }
     }
 }

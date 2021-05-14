@@ -1,5 +1,9 @@
 query GetFilms {
     allFilms {
-        ...FilmFragment
+        edges{
+            node{
+                ...FilmFragment
+            }
+        }
     }
 }

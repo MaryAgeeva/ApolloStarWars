@@ -1,5 +1,5 @@
 query GetFilm($id:ID!) {
-    Film(id:$id) {
+    film(id:$id) {
         ...FilmFragment
     }
 }

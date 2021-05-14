@@ -2,12 +2,16 @@ fragment FilmFragment on Film {
     id
     title
     director
-    episodeId
-    characters {
-        ...CharacterFragment
+    episodeID
+    characterConnection {
+        characters {
+            ...CharacterFragment
+        }
     }
-    planets {
-        ...PlanetFragment
+    planetConnection {
+        planets {
+            ...PlanetFragment
+        }
     }
 }
 
@@ -27,5 +31,5 @@ fragment PlanetFragment on Planet {
     name
     diameter
     population
-    climate
+    climates
 }

@@ -3,7 +3,6 @@ package com.mary.starwars.data.example_repository
 import android.util.Log
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.ApolloSubscriptionCall
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.mary.starwars.*
@@ -49,52 +48,12 @@ class RepositoryCallback(
             }
 
             override fun onResponse(response: Response<GetFilmsNotOptimizedQuery.Data>) {
-                val filmType = response.data?.allFilms?.first()?.__typename
-                val filmClassName = response.data?.allFilms?.first()?.javaClass?.simpleName
+                val filmType = response.data?.allFilms?.edges?.first()?.node?.__typename
+                val filmClassName = response.data?.allFilms?.edges?.first()?.node?.javaClass?.simpleName
                 Log.i("ApolloStarWars", """
                     GetFilmsNotOptimizedQuery: films type = $filmType, film Java class = $filmClassName
                 """)
                 //GetFilmsNotOptimizedQuery: films type = Film, film Java class = AllFilm
-            }
-        })
-    }
-
-    override fun deleteFilm(id: String) {
-        apolloClient.mutate(
-            DeleteFilmMutation(id = id)
-        ).enqueue(object : ApolloCall.Callback<DeleteFilmMutation.Data>() {
-            override fun onFailure(e: ApolloException) {
-                /* Response to exception */
-            }
-
-            override fun onResponse(response: Response<DeleteFilmMutation.Data>) {
-                /* Do something */
-            }
-        })
-    }
-
-    override fun listenForNewFilm() {
-        apolloClient.subscribe(
-            WaitForNewFilmSubscription()
-        ).execute(object : ApolloSubscriptionCall.Callback<WaitForNewFilmSubscription.Data> {
-            override fun onFailure(e: ApolloException) {
-                /* Response to exception */
-            }
-
-            override fun onResponse(response: Response<WaitForNewFilmSubscription.Data>) {
-                /* Do something */
-            }
-
-            override fun onConnected() {
-                /* Do something */
-            }
-
-            override fun onTerminated() {
-                /* Do something */
-            }
-
-            override fun onCompleted() {
-                /* Do something */
             }
         })
     }

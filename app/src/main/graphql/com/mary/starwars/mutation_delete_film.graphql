@@ -1,6 +1,0 @@
-mutation DeleteFilm($id:ID!) {
-    deleteFilm(id:$id) {
-        id
-        title
-    }
-}
