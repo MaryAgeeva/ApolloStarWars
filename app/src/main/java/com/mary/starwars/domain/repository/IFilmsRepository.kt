@@ -1,7 +1,7 @@
 package com.mary.starwars.domain.repository
 
 import com.mary.starwars.domain.entity.Film
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 interface IFilmsRepository {
 

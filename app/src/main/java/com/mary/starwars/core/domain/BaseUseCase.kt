@@ -1,6 +1,6 @@
 package com.mary.starwars.core.domain
 
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 interface BaseUseCase<T> {
 

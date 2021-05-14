@@ -6,7 +6,7 @@ import com.mary.starwars.core.presentation.BaseViewModel
 import com.mary.starwars.domain.use_case.GetFilmsUseCase
 import com.mary.starwars.presentation.mappers.toFilmViews
 import com.mary.starwars.presentation.utils.plusAssign
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 
 class FilmsViewModel(private val getFilmsAction: GetFilmsUseCase) : BaseViewModel() {
 

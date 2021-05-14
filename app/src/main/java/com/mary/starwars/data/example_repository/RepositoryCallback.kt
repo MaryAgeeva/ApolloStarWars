@@ -23,17 +23,15 @@ class RepositoryCallback(
      */
     override fun getFilm(id: String) {
         apolloClient.query(
-            GetFilmNotOptimizedQuery.builder()
-                .id(id)
-                .build()
+            GetFilmNotOptimizedQuery(id = id)
         ).enqueue(object : ApolloCall.Callback<GetFilmNotOptimizedQuery.Data>() {
             override fun onFailure(e: ApolloException) {
                 /* Response to exception */
             }
 
             override fun onResponse(response: Response<GetFilmNotOptimizedQuery.Data>) {
-                val filmType = response.data()?.Film()?.__typename()
-                val filmClassName = response.data()?.Film()?.javaClass?.simpleName
+                val filmType = response.data?.film?.__typename
+                val filmClassName = response.data?.film?.javaClass?.simpleName
                 Log.i("ApolloStarWars", """
                     GetFilmNotOptimizedQuery: film type = $filmType, film Java class = $filmClassName
                 """)
@@ -51,8 +49,8 @@ class RepositoryCallback(
             }
 
             override fun onResponse(response: Response<GetFilmsNotOptimizedQuery.Data>) {
-                val filmType = response.data()?.allFilms()?.first()?.__typename()
-                val filmClassName = response.data()?.allFilms()?.first()?.javaClass?.simpleName
+                val filmType = response.data?.allFilms?.first()?.__typename
+                val filmClassName = response.data?.allFilms?.first()?.javaClass?.simpleName
                 Log.i("ApolloStarWars", """
                     GetFilmsNotOptimizedQuery: films type = $filmType, film Java class = $filmClassName
                 """)
@@ -63,9 +61,7 @@ class RepositoryCallback(
 
     override fun deleteFilm(id: String) {
         apolloClient.mutate(
-            DeleteFilmMutation.builder()
-                .id(id)
-                .build()
+            DeleteFilmMutation(id = id)
         ).enqueue(object : ApolloCall.Callback<DeleteFilmMutation.Data>() {
             override fun onFailure(e: ApolloException) {
                 /* Response to exception */

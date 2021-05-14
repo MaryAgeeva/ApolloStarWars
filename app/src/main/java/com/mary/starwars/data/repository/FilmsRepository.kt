@@ -1,14 +1,14 @@
 package com.mary.starwars.data.repository
 
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.rx2.rxQuery
+import com.apollographql.apollo.rx3.rxQuery
 import com.mary.starwars.GetFilmsQuery
 import com.mary.starwars.data.mappers.toFilm
 import com.mary.starwars.domain.entity.Film
 import com.mary.starwars.domain.repository.IFilmsRepository
 import com.mary.starwars.domain.utils.FilmNotFoundException
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class FilmsRepository(
     private val apolloClient: ApolloClient
@@ -29,8 +29,8 @@ class FilmsRepository(
                  ).singleElement()
              .toSingle()
              .map { response ->
-                 filmsList = response.data()?.allFilms()?.map { film ->
-                     film.fragments().filmFragment().toFilm()
+                 filmsList = response.data?.allFilms?.map { film ->
+                     film.fragments.filmFragment.toFilm()
                  }?.sortedBy { it.episode }?: listOf()
                  return@map filmsList
              }

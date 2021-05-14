@@ -1,7 +1,7 @@
 package com.mary.starwars.data.example_repository
 
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.coroutines.toDeferred
+import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.coroutines.toFlow
 import com.mary.starwars.DeleteFilmMutation
 import com.mary.starwars.GetFilmQuery
@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.map
 /**
  * Class, created as example, how to use coroutines extensions for Apollo GraphQL Android
  */
-@UseExperimental(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class RepositoryCoroutines(
     private val apolloClient: ApolloClient
 ) : IRepositoryCoroutines {
@@ -36,12 +36,10 @@ class RepositoryCoroutines(
      */
     override suspend fun getFilm(id: String): Film {
         return apolloClient.query(
-            GetFilmQuery.builder()
-                .id(id)
-                .build()
-        ).toDeferred()
+            GetFilmQuery(id = id)
+        )
         .await()
-        .data()?.Film()?.fragments()?.filmFragment()?.toFilm()?: throw FilmNotFoundException()
+        .data?.film?.fragments?.filmFragment?.toFilm()?: throw FilmNotFoundException()
     }
 
     /**
@@ -55,10 +53,10 @@ class RepositoryCoroutines(
     override suspend fun getAllFilms(): List<Film> {
         return apolloClient.query(
             GetFilmsQuery()
-        ).toDeferred()
+        )
         .await()
-        .data()?.allFilms()?.map { film ->
-            film.fragments().filmFragment().toFilm()
+        .data?.allFilms?.map { film ->
+            film.fragments.filmFragment.toFilm()
         }?: listOf()
     }
 
@@ -68,12 +66,10 @@ class RepositoryCoroutines(
      */
     override suspend fun deleteFilm(id: String) {
         apolloClient.mutate(
-            DeleteFilmMutation.builder()
-                .id(id)
-                .build()
-        ).toDeferred()
+            DeleteFilmMutation(id = id)
+        )
         .await()
-        .data()?.deleteFilm()?.id()?: throw FilmNotDeletedException()
+        .data?.deleteFilm?.id?: throw FilmNotDeletedException()
     }
 
     /**
@@ -89,7 +85,7 @@ class RepositoryCoroutines(
             WaitForNewFilmSubscription()
         ).toFlow()
         .map { response ->
-            return@map response.data()?.Film()?.node()?.fragments()?.filmFragment()?.toFilm()?: throw FilmNotFoundException()
+            return@map response.data?.film?.node?.fragments?.filmFragment?.toFilm()?: throw FilmNotFoundException()
         }
         .flowOn(Dispatchers.IO)
     }

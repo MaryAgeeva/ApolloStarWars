@@ -25,10 +25,10 @@ class FilmsAdapter : BaseAdapter<FilmViewObject, FilmsAdapter.FilmsViewHolder>()
 
         init {
             itemView.setOnClickListener { view ->
-                if(adapterPosition in items.indices) {
+                if(bindingAdapterPosition in items.indices) {
                     view.findNavController().navigate(
                         FilmsFragmentDirections.actionFilmsFragmentToDetailFragment(
-                            items[adapterPosition].id
+                            items[bindingAdapterPosition].id
                         )
                     )
                 }
@@ -37,7 +37,7 @@ class FilmsAdapter : BaseAdapter<FilmViewObject, FilmsAdapter.FilmsViewHolder>()
 
         override fun bind(model: FilmViewObject) = with(itemView){
             film_divider.apply {
-                if(adapterPosition == items.size - 1)
+                if(bindingAdapterPosition == items.size - 1)
                     hide()
                 else show()
             }

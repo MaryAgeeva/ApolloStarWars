@@ -10,36 +10,36 @@ import com.mary.starwars.type.PERSON_HAIR_COLOR
 
 internal fun FilmFragment.toFilm() : Film {
     return Film(
-        id = id(),
-        title = title(),
-        director = director()?: String.empty(),
-        episode = episodeId(),
-        characters =  characters()?.map {
-            it.fragments().characterFragment().toCharacter()
+        id = id,
+        title = title,
+        director = director?: String.empty(),
+        episode = episodeId,
+        characters =  characters?.map {
+            it.fragments.characterFragment.toCharacter()
         }?: listOf(),
-        planets = planets()?.map {
-            it.fragments().planetFragment().toPlanet()
+        planets = planets?.map {
+            it.fragments.planetFragment.toPlanet()
         }?: listOf()
     )
 }
 
 private fun CharacterFragment.toCharacter() : Character {
     return Character(
-        id = id(),
-        name = name(),
-        gender = gender().toGender(),
-        hairColor = if(!hairColor().isNullOrEmpty()) hairColor()?.first()?.toColor()?: Color.OTHER else Color.OTHER,
-        species = if(!species().isNullOrEmpty()) species()?.first()?.name()?: String.empty() else String.empty()
+        id = id,
+        name = name,
+        gender = gender.toGender(),
+        hairColor = if(!hairColor.isNullOrEmpty()) hairColor.first().toColor() else Color.OTHER,
+        species = if(!species.isNullOrEmpty()) species.first().name else String.empty()
     )
 }
 
 private fun PlanetFragment.toPlanet() : Planet {
     return Planet(
-        id = id(),
-        title = name(),
-        diameter = diameter()?: 0,
-        population = population()?: 0.0,
-        climate = climate()?: listOf()
+        id = id,
+        title = name,
+        diameter = diameter ?: 0,
+        population = population ?: 0.0,
+        climate = climate ?: listOf()
     )
 }
 

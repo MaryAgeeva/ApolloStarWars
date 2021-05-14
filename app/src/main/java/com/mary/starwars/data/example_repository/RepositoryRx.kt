@@ -1,9 +1,9 @@
 package com.mary.starwars.data.example_repository
 
 import com.apollographql.apollo.ApolloClient
-import com.apollographql.apollo.rx2.rxMutate
-import com.apollographql.apollo.rx2.rxQuery
-import com.apollographql.apollo.rx2.rxSubscribe
+import com.apollographql.apollo.rx3.rxMutate
+import com.apollographql.apollo.rx3.rxQuery
+import com.apollographql.apollo.rx3.rxSubscribe
 import com.mary.starwars.DeleteFilmMutation
 import com.mary.starwars.GetFilmQuery
 import com.mary.starwars.GetFilmsQuery
@@ -13,9 +13,9 @@ import com.mary.starwars.domain.entity.Film
 import com.mary.starwars.domain.example_repository.IRepositoryRx
 import com.mary.starwars.domain.utils.FilmNotDeletedException
 import com.mary.starwars.domain.utils.FilmNotFoundException
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Single
 
 /**
  * Class, created as example, how to work with RxJava2 support for Apollo GraphQL Android
@@ -32,13 +32,11 @@ class RepositoryRx(
      */
     override fun getFilm(id: String): Single<Film> {
         return apolloClient.rxQuery(
-                GetFilmQuery.builder()
-                    .id(id)
-                    .build()
+                GetFilmQuery(id = id)
             ).singleElement()
             .toSingle()
             .map { response ->
-                return@map response.data()?.Film()?.fragments()?.filmFragment()?.toFilm()?: throw FilmNotFoundException()
+                return@map response.data?.film?.fragments?.filmFragment?.toFilm()?: throw FilmNotFoundException()
             }
     }
 
@@ -54,8 +52,8 @@ class RepositoryRx(
             ).singleElement()
             .toSingle()
             .map { response ->
-                return@map response.data()?.allFilms()?.map { film ->
-                    film.fragments().filmFragment().toFilm()
+                return@map response.data?.allFilms?.map { film ->
+                    film.fragments.filmFragment.toFilm()
                 }?: listOf()
             }
     }
@@ -65,11 +63,9 @@ class RepositoryRx(
      */
     override fun deleteFilm(id: String): Completable {
         return apolloClient.rxMutate(
-                DeleteFilmMutation.builder()
-                    .id(id)
-                    .build()
+                DeleteFilmMutation(id = id)
             ).flatMapCompletable { response ->
-                return@flatMapCompletable response.data()?.deleteFilm()?.let {
+                return@flatMapCompletable response.data?.deleteFilm?.let {
                     Completable.complete()
                 }?: Completable.error(FilmNotDeletedException())
             }
@@ -85,7 +81,7 @@ class RepositoryRx(
                 WaitForNewFilmSubscription()
             )
         .map { response ->
-            return@map response.data()?.Film()?.node()?.fragments()?.filmFragment()?.toFilm()?: throw FilmNotFoundException()
+            return@map response.data?.film?.node?.fragments?.filmFragment?.toFilm()?: throw FilmNotFoundException()
         }
     }
 }
